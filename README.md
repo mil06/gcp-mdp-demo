@@ -47,10 +47,14 @@ As mentioned, our data is a set of records regarding meteors that have fallen to
 ```json
 [{"name": "Aachen", "id": "1", "nametype": "Valid", "recclass": "L5", "mass": "21", "fall": "Fell", "year": "1880-01-01T00:00:00.000", "reclat": "50.775000", "reclong": "6.083330", "geolocation": {"type": "Point", "coordinates": [6.08333,50.775]}}, ...]
 ```
+#### Cloud Storage
 
 Click on the hamburger icon to expand the products menu. Under STORAGE we'll find the Storage product. Below is the Storage browser where we can create a new bucket for the file we'll upload. 
 
-![GCP Storage Browser](documents/gcp%20SS/GCP%20Storage%20Browser%20SS.png)
-![GCP Storage Create A](documents/gcp%20SS/GCP%20Storage%20Create%20A%20SS.png)
-![GCP Storage Create B](documents/gcp%20SS/GCP%20Storage%20Create%20B%20SS.png)
+![GCP Storage Browser](documents/gcp%20ss/GCP%20Storage%20Browser%20SS.png)
 
+1. Click CREATE BUCKET
+2. Provide a name for your new bucket
+3. Choose where you want to Store your data (Multi-region by defualt)
+4. Choose storage class (Standard by defualt)
+5. Choose control access for objects
