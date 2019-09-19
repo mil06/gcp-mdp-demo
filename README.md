@@ -92,10 +92,10 @@ NEW TEXT
 
 ![GCP Dataprep Updated Flow B](documents/gcp%20ss/GCP%20Dataprep%20Updated%20Flow%20B%20SS.png)
 
-![GCP Dataprep recipe AA SS](documents/gcp%20ss/GCP%20Dataprep%20recipie%20AA20SS.png)
+![GCP Dataprep recipe AA SS](documents/gcp%20ss/GCP%20Dataprep%20recipe%20AA%20SS.png)
 
-![GCP Dataprep recipe AB SS](documents/gcp%20ss/GCP%20Dataprep%20recipie%20AB20SS.png)
+![GCP Dataprep recipe AB SS](documents/gcp%20ss/GCP%20Dataprep%20recipe%20AB%20SS.png)
 
-![GCP Dataprep Updated Flow C SS](documents/gcp%20ss/GCP%20Dataprep%20Updated%20Flow%20C%20SS.png)
+![GCP Dataprep Updated Flow C SS](documents/gcp%20ss/GCP%20Dataprep%20%20Update%20Flow%20C%20SS.png)
 
-![GCP Dataprep recipe BA SS](documents/gcp%20ss/GCP%20Dataprep%20recipie%20BA20SS.png)
+![GCP Dataprep recipe BA SS](documents/gcp%20ss/GCP%20Dataprep%20recipe%20BA%20SS.png)
