@@ -60,4 +60,6 @@ Click on the hamburger icon to expand the products menu. Under STORAGE we'll fin
 5. Choose control access for objects
 6. Click CREATE
 
-If we navigagte back to the Storage browser, we can see the newly created bucket. (My new bucket circled above in red)
+If we navigagte back to the Storage browser, we can see the newly created bucket. (My new bucket circled above in red). Lets go into our bucket and create a folder to place our JSON file. 
+
+
