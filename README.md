@@ -88,9 +88,18 @@ This brings us back to our updated flow. We can see our file is imported below a
 
 ![GCP Dataprep Flow](documents/gcp%20ss/GCP%20Dataprep%20Updated%20Flow%20SS.png)
 
-NEW TEXT
+You can see below the recipe that we added to our flow. At the moment our recipe is empty. We can give the recipe a name (meteorsonearth clean data). If we click Edit Recipe (Circled in green below), we can start to add the transformation steps to clean the data as intended. 
 
 ![GCP Dataprep Updated Flow B](documents/gcp%20ss/GCP%20Dataprep%20Updated%20Flow%20B%20SS.png)
+
+As mentioned, our intent here is to break apart the JSON and get it into a row column format. Since we have data in a JSON format, we can use a provided function to convert the key value pairs to column values. In order to do this, we'll need to have each row represent a single object with the proper syntax. On import you'll notice that the JSON data is represented as one row in one column. 
+
+1. The first step should be "Split into rows" (function) for column1 and split on \n. This will get us closer to having one object per row. 
+2. The second step should be "Replace text or patterns" for column1 and find /^\[/. Since our JSON data is an array of objects, we need to strip the leading and trailing '[' & ']'. 
+3. Step 3 does the same as above, but for the trailing braket ']'. "Replace text or patterns" for column1 and find /\]$/.
+4. Step 4 removes the comma at the end of the object, as this was an array of objects. "Replace text or patterns" for column1 and find /^,/
+5. Now that we have a proper JSON object for each row, for step 5 we can use the Unnest Objects into columns function. This will take all the objects in column1 and pick out the values for each key and create a new column for that key. 
+6. Lastly we can delete column1, and we'll be left with a row column format for our data. 
 
 ![GCP Dataprep recipe AA SS](documents/gcp%20ss/GCP%20Dataprep%20recipe%20AA%20SS.png)
 
