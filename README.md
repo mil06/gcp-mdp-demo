@@ -1,14 +1,14 @@
 ## Overview
 
-This demo is intended to introduce a set of GCP products used to build modern data pipelines. Specifically, we will focus on the personas in this lifecycle and thier coresponding products of interest. The demo should cover processes related to ingestion (streaming & batch), data manipulation (transformations), and end user interactions (reporting).
+This demo is intended to introduce a set of GCP products used to build modern data pipelines. Specifically, we will focus on processes related to ingestion (streaming & batch), data manipulation (transformations), and end user interactions (reporting). The personas in this lifecycle can be associated to thier coresponding products of interest. 
 
 Personas to Products:
 - Business Report User - Data Studio
-- Analyst/Data Engineer - Data Prep, Pub Sub, Dataflow
+- Analyst / Data Engineer - Data Prep, Pub Sub, Dataflow
 - Data Scientest - Datalab
 - Developer - Cloud SDK
 
-For this sample architecture, we've leveraged a publicly available data set from NASA which has recorded the meteors that have fallen to earth.
+For this architecture, we've leveraged a publicly available data set from NASA which has recorded the meteors that have fallen to earth.
 
 ## Architecture
 ![GCP MDP Arch](/documents/gcp-mdp-arch-diagram.png)
@@ -58,3 +58,6 @@ Click on the hamburger icon to expand the products menu. Under STORAGE we'll fin
 3. Choose where you want to Store your data (Multi-region by defualt)
 4. Choose storage class (Standard by defualt)
 5. Choose control access for objects
+6. Click CREATE
+
+If we navigagte back to the Storage browser, we can see the newly created bucket. (My new bucket circled above in red)
