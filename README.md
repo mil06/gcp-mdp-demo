@@ -49,7 +49,7 @@ As mentioned, our data is a set of records regarding meteors that have fallen to
 ```
 #### Cloud Storage
 
-Click on the hamburger icon to expand the products menu (Top left of screen). Under STORAGE we'll find the Storage product. Below is the Storage browser where we can create a new bucket for the file we'll upload. 
+We can continue by using Cloud Storage to upload our JSON file. Click on the hamburger icon to expand the products menu (Top left of screen). Under STORAGE we'll find the Storage product. Below is the Storage browser where we can create a new bucket for the file we'll upload. 
 
 ![GCP Storage Browser](documents/gcp%20ss/GCP%20Storage%20Browser%20SS.png)
 
@@ -60,11 +60,13 @@ Click on the hamburger icon to expand the products menu (Top left of screen). Un
 5. Choose control access for objects
 6. Click CREATE
 
+If we navigagte back to the Storage browser, we can see the newly created bucket. (Circled above in green (storage-sc-demo)). 
+
 ![GCP Storage Create A](documents/gcp%20ss/GCP%20Storage%20Create%20A%20SS.png)
 
 ![GCP Storage Create B](documents/gcp%20ss/GCP%20Storage%20Create%20B%20SS.png)
 
-If we navigagte back to the Storage browser, we can see the newly created bucket. (Circled above in green). Lets go into our bucket and create a folder to place our JSON file. Use the create folder button (Circled below in green). Give your folder a name and you'll see it be created (Circled in green (data-prep)). Upload the JSON file, meteorsonearth.json, from the /data folder. You can now see the uploaded file in the dataprep folder (Circled in green second image below). Now that we have completed the steps required in Cloud Storage, we can continue to Dataprep
+Lets go into our bucket and create a folder to place our JSON file. Use the create folder button (Circled below in green). Give your folder a name and you'll see it be created (Circled in green (data-prep)). Upload the JSON file, meteorsonearth.json, from the /data folder. You can now see the uploaded file in the dataprep folder (Circled in green second image below). Now that we have completed the steps required in Cloud Storage, we can continue to Dataprep
 
 ![GCP Storage Bucket](documents/gcp%20ss/GCP%20Storage%20Bucket%20SS.png)
 
@@ -105,6 +107,35 @@ As mentioned, our intent here is to break apart the JSON and get it into a row c
 
 ![GCP Dataprep recipe AB SS](documents/gcp%20ss/GCP%20Dataprep%20recipe%20AB%20SS.png)
 
+Now that we have completed the transformatons required in our first step to clean the data, we can continue to the next recipe which will have more of the business logic transformations. Comming back to the flow, we can add another recipe after the first and name it (meteorsonearth transform). Once again we'll click edit recipie to start adding the steps for this transformation. 
+
+1. Add a new step and search for the New Formula function. The Formula Type will be Multiple Row Formula. The Formula will be MULTIPLY(mass, 2.205). Here we're using the Multiply function to convert the mass column, curently in lbs to kgs. 
+2. We can then use the delete column function to remove the original mass column as we will no longer need that. 
+3. We'll rename the year column to timestamp, as it contains a time stamp and not just the year. 
+4. Add another step with the New Formula function. The Formula Type will be Multiple Row Formula. The Formula will be DATEFORMAT(timestamp, 'yyyy'). The idea behind this, and the next couple steps, is to extract the year, date and month to thier own columns.
+5. Here we do the same as obove, but for the month. DATEFORMAT(timestamp, 'MM'). 
+6. Once again, we do the same as above to extract the date. DATEFORMAT(timestamp, 'dd').
+
 ![GCP Dataprep Updated Flow C SS](documents/gcp%20ss/GCP%20Dataprep%20%20Update%20Flow%20C%20SS.png)
 
 ![GCP Dataprep recipe BA SS](documents/gcp%20ss/GCP%20Dataprep%20recipe%20BA%20SS.png)
+
+Now that we have completed the steps in our transformations recipe, we can come back to our flow and set an output destination. To set an output destination we can click on the arrow that appears over the step on hover (Circled in green below). We can edit the destination details by clicking the Edit button under the Destinations tab (Circled in green). Also keep in mind the Run Job button, which we'll use after configuring the output destination.
+
+![GCP Dataprep Set Output A SS](documents/gcp%20ss/GCP%20Dataprep%20Set%20Output%20A%20SS.png)
+
+The edit browser can be seen below. By defualt the output will be sent to GCS in the form of a .csv. We can click Edit here to modify the destination (Circled in green).
+
+![GCP Dataprep Set Output B SS](documents/gcp%20ss/GCP%20Dataprep%20Set%20Output%20B%20SS.png)
+
+Since we want to set our destination to BigQuery, we'll first need to create a Dataset in BigQuery. Navigate to BigQuery using the hamburger icon and you'll find BigQuery under BIG DATA. We can CREATE DATASET (Circled in green below). I've named mine (nasa). Now we can go back to our dataprep console where we left off, and select our newly created dataset under BigQuery. You'll see we have the option to create a table on the fly and append for following executions. 
+
+![GCP BigQuery Create Dataset SS](documents/gcp%20ss/GCP%20BigQuery%20Create%20Dataset%20SS.png)
+
+![GCP Dataprep Set Output C SS](documents/gcp%20ss/GCP%20Dataprep%20Set%20Output%20C%20SS.png)
+
+We can update our flow (as seen above). This will bring us back to our flow where we can now run the job. Behind the scenes, this is executed as a dataflow job. We can navigate to dataflow using the hamburger icon and we'll find dataflow under BIGDATA. To see the execution of our flow, we can click into the job id, and we'll see the live execution of our job broken down into different steps.
+
+![GCP Dataflow Execution SS](documents/gcp%20ss/GCP%20Dataflow%20Execution%20SS.png)
+
+## Streaming Process (30 mins)
