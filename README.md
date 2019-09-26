@@ -1,13 +1,13 @@
-# Sample GCP Modern Data Pipeline
+# Example GCP Modern Data Pipeline
 
 ## Overview
 
-This demo is intended to introduce a set of GCP products used to build modern data pipelines. Specifically, we will focus on processes related to ingestion (streaming & batch), data manipulation, and end user interactions (reporting). The personas in this lifecycle can be associated to thier coresponding products of interest. 
+This demo is intended to introduce a set of GCP products used to build modern data pipelines. Specifically, we will focus on processes related to ingestion (streaming & batch), data manipulation, and end user interactions (reporting). The personas in this lifecycle can be associated to their corresponding products of interest. 
 
 Personas to Products:
 - Business Report User - Data Studio
 - Analyst / Data Engineer - Data Prep, Pub Sub, Dataflow
-- Data Scientest - Datalab
+- Data Scientist - Datalab
 - Developer - Cloud SDK
 
 For this architecture, we've leveraged a publicly available data set from NASA which has recorded the meteors that have fallen to earth.
@@ -31,7 +31,7 @@ Provide a name for your project and click CREATE.
 
 ## Batch Process (30 mins)
 
-For the batch process we'll be using a combination of Cloud Storage, Dataprep, Dataflow, and BigQuery. We'll start by uploading our raw JSON file to Cloud Storage. Dataprep will then be able to connect to our JSON file to apply any data transformations and send the output to BigQuery. Dataflow helps to orchestrate this process and provide the requried resources. 
+For the batch process we'll be using a combination of Cloud Storage, Dataprep, Dataflow, and BigQuery. We'll start by uploading our raw JSON file to Cloud Storage. Dataprep will then be able to connect to our JSON file to apply any data transformations and send the output to BigQuery. Dataflow helps to orchestrate this process and provide the required resources. 
 
 #### Quick Product Overview (as per GCP documentation)
 
@@ -58,12 +58,12 @@ We can continue in our newly created GCP project by using Cloud Storage to uploa
 (Steps can be followed with images below)
 1. Click CREATE BUCKET
 2. Provide a name for your new bucket
-3. Choose where you want to Store your data (Multi-region by defualt)
-4. Choose storage class (Standard by defualt)
+3. Choose where you want to Store your data (Multi-region by default)
+4. Choose storage class (Standard by default)
 5. Choose control access for objects
 6. Click CREATE
 
-If we navigagte back to the Storage browser, we can see the newly created bucket. (Circled above in green (storage-sc-demo)). 
+If we navigate back to the Storage browser, we can see the newly created bucket. (Circled above in green (storage-sc-demo)). 
 
 ![GCP Storage Create A](documents/gcp%20ss/GCP%20Storage%20Create%20A%20SS.png)
 
@@ -91,7 +91,7 @@ Below, we can see the options to import data. GCS, BigQuery, and Upload. Our JSO
 
 ![GCP Dataprep Import Edit](documents/gcp%20ss/GCP%20Dataprep%20Import%20Edit%20SS.png)
 
-This brings us back to our updated flow. We can see our file is imported below as a step (Circled in green). If we hover over this step, we'll see three dots that open up a menu (as seen in the image below). Our next step will be to add a recipie which will be responsible for cleaning up the data so it can be translated to a row column format.
+This brings us back to our updated flow. We can see our file is imported below as a step (Circled in green). If we hover over this step, we'll see three dots that open up a menu (as seen in the image below). Our next step will be to add a recipe which will be responsible for cleaning up the data so it can be translated to a row column format.
 
 ![GCP Dataprep Flow](documents/gcp%20ss/GCP%20Dataprep%20Updated%20Flow%20SS.png)
 
@@ -103,7 +103,7 @@ As mentioned, our intent here is to break apart the JSON and get it into a row c
 
 1. The first step should be "Split into rows" (function) for column1 and split on \n. This will get us closer to having one object per row. 
 2. The second step should be "Replace text or patterns" for column1 and find /^\[/. Since our JSON data is an array of objects, we need to strip the leading and trailing '[' & ']'. 
-3. Step 3 does the same as above, but for the trailing braket ']'. "Replace text or patterns" for column1 and find /\]$/.
+3. Step 3 does the same as above, but for the trailing bracket ']'. "Replace text or patterns" for column1 and find /\]$/.
 4. Step 4 removes the comma at the end of the object, as this was an array of objects. "Replace text or patterns" for column1 and find /^,/
 5. Now that we have a proper JSON object for each row, for step 5 we can use the Unnest Objects into columns function. This will take all the objects in column1 and pick out the values for each key and create a new column for that key. 
 6. Lastly we can delete column1, and we'll be left with a row column format for our data. 
@@ -112,14 +112,14 @@ As mentioned, our intent here is to break apart the JSON and get it into a row c
 
 ![GCP Dataprep recipe AB SS](documents/gcp%20ss/GCP%20Dataprep%20recipe%20AB%20SS.png)
 
-Now that we have completed the transformatons required in our first step to clean the data, we can continue to the next recipe which will have more of the business logic transformations. Comming back to the flow, we can add another recipe after the first and name it (meteorsonearth transform). Once again we'll click edit recipie to start adding the steps for this transformation. 
+Now that we have completed the transformations required in our first step to clean the data, we can continue to the next recipe which will have more of the business logic transformations. Coming back to the flow, we can add another recipe after the first and name it (meteorsonearth transform). Once again we'll click edit recipe to start adding the steps for this transformation. 
 
 ![GCP Dataprep Updated Flow C SS](documents/gcp%20ss/GCP%20Dataprep%20%20Update%20Flow%20C%20SS.png)
 
-1. Add a new step and search for the New Formula function. The Formula Type will be Multiple Row Formula. The Formula will be MULTIPLY(mass, 2.205). Here we're using the Multiply function to convert the mass column, curently in lbs to kgs. 
+1. Add a new step and search for the New Formula function. The Formula Type will be Multiple Row Formula. The Formula will be MULTIPLY(mass, 2.205). Here we're using the Multiply function to convert the mass column, currently in lbs to kgs. 
 2. We can then use the delete column function to remove the original mass column as we will no longer need that. 
 3. We'll rename the year column to timestamp, as it contains a time stamp and not just the year. 
-4. Add another step with the New Formula function. The Formula Type will be Multiple Row Formula. The Formula will be DATEFORMAT(timestamp, 'yyyy'). The idea behind this, and the next couple steps, is to extract the year, date and month to thier own columns.
+4. Add another step with the New Formula function. The Formula Type will be Multiple Row Formula. The Formula will be DATEFORMAT(timestamp, 'yyyy'). The idea behind this, and the next couple steps, is to extract the year, date and month to their own columns.
 5. Here we do the same as above, but for the month. DATEFORMAT(timestamp, 'MM'). 
 6. Once again, we do the same as above to extract the date. DATEFORMAT(timestamp, 'dd').
 
@@ -130,7 +130,7 @@ Now that we have completed the steps in our transformations recipe, we can come 
 
 ![GCP Dataprep Set Output A SS](documents/gcp%20ss/GCP%20Dataprep%20Set%20Output%20A%20SS.png)
 
-The edit browser can be seen below. By defualt the output will be sent to GCS in the form of a .csv. We can click Edit here to modify the destination (Circled in green).
+The edit browser can be seen below. By default the output will be sent to GCS in the form of a .csv. We can click Edit here to modify the destination (Circled in green).
 
 ![GCP Dataprep Set Output B SS](documents/gcp%20ss/GCP%20Dataprep%20Set%20Output%20B%20SS.png)
 
@@ -146,7 +146,7 @@ We can update our flow (as seen above). This will bring us back to our flow wher
 
 ## Streaming Process (30 mins)
 
-For our sreaming process we'll be using a comination of Pub/Sub, Dataflow, and BigQuery. In our Pub/Sub model, the subscriber will directly relay recived records to BigQuery. So any publisher who sends a message to the given Topic will then have it be picked up by the subscriber (listening to the same topic) who will send that data over to BigQuery. 
+For our streaming process we'll be using a combination of Pub/Sub, Dataflow, and BigQuery. In our Pub/Sub model, the subscriber will directly relay received records to BigQuery. So any publisher who sends a message to the given Topic will then have it be picked up by the subscriber (listening to the same topic) who will send that data over to BigQuery. 
 
 #### Quick Product Overview (as per GCP Documentation)
 
@@ -188,5 +188,5 @@ Now lets create a subscription. We can click on the subscriptions tab on the lef
 
 #### Dataflow 
 
-Dataflow has a service set up that will automatically send the messages recived by the subscriber over to our BigQuery Table. Lets navigate to Dataflow so we can set that up. 
+Dataflow has a service set up that will automatically send the messages received by the subscriber over to our BigQuery Table. Lets navigate to Dataflow so we can set that up. 
 
