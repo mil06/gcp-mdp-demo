@@ -177,6 +177,16 @@ If we navigate to the Pub/Sub console under BIGDATA we can create our topic and 
 
 Now lets create a subscription. We can click on the subscriptions tab on the left hand side. Click on the CREATE SUBSCRIPTIONS option on the top and you'll be prompted to fill out the following. 
 
+1. We can provide any name for our SubscriptionID, such as NasaMeteorsSubscription. 
+2. Provide the name of the Topic we just created in the format expected. 
+3. Keep the delivery type as Pull
+4. Feel free to adjust the other parameters as required and create when done. 
+
 ![GCP PubSub Sub Create A SS](documents/gcp%20ss/GCP%20PubSub%20Sub%20Create%20A%20SS.png)
 
 ![GCP PubSub Sub Create B SS](documents/gcp%20ss/GCP%20PubSub%20Sub%20Create%20B%20SS.png)
+
+#### Dataflow 
+
+Dataflow has a service set up that will automatically send the messages recived by the subscriber over to our BigQuery Table. Lets navigate to Dataflow so we can set that up. 
+
