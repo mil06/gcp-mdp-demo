@@ -17,7 +17,7 @@ For this architecture, we've leveraged a publicly available data set from NASA w
 
 ## Getting Started (5 mins)
 
-Navigate to the GCP console (https://console.cloud.google.com). You'll need a google account with billing enabled to continue building out your MDP. First time GCP users may have free credits.
+Navigate to the GCP console (https://console.cloud.google.com). You'll need a google account with billing enabled to continue building out your pipeline. First time GCP users may have free credits.
 
 ![GCP Console SS](documents/gcp%20ss/GCP%20Console%20SS.png)
 
