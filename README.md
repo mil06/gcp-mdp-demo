@@ -90,22 +90,22 @@ Below, we can see the options to import data. GCS, BigQuery, and Upload. Our JSO
 
 ![GCP Dataprep Import Edit](documents/gcp%20ss/GCP%20Dataprep%20Import%20Edit%20SS.png)
 
-This brings us back to our updated flow. We can see our file is imported below as a step (Circled in green). If we hover over this step, we'll see three dots that open up a menu (as seen in the image below). Our next step will be to add a recipe which will be responsible for cleaning up the data so it can be translated to a row column format.
+This brings us back to our updated flow. We can see our file is imported below (circled in green). If we hover over this step, we'll see three dots that open up a menu (as seen in the image below). Our next step will be to add a recipe which will be responsible for cleaning up the data so it can be translated to a row column format.
 
 ![GCP Dataprep Flow](documents/gcp%20ss/GCP%20Dataprep%20Updated%20Flow%20SS.png)
 
-You can see below the recipe that we added to our flow. At the moment our recipe is empty. We can give the recipe a name (meteorsonearth clean data). If we click Edit Recipe (Circled in green below), we can start to add the transformation steps to clean the data as intended. 
+You can see below the recipe that we've added to our flow. We can give the recipe a name (meteorsonearth clean data). If we click Edit Recipe (circled in green below), we can start to add the transformation steps to clean the data as intended. On the right, you can see a preview of the steps that we'll be adding to this recipe.
 
 ![GCP Dataprep Updated Flow B](documents/gcp%20ss/GCP%20Dataprep%20Updated%20Flow%20B%20SS.png)
 
-As mentioned, our intent here is to break apart the JSON and get it into a row column format. Since we have data in a JSON format, we can use a provided function to convert the key value pairs to column values. In order to do this, we'll need to have each row represent a single object with the proper syntax. On import you'll notice that the JSON data is represented as one row in one column. 
+As mentioned, our intent here is to break apart the JSON and get it into a row column format. Since we have data in JSON format, we can use a provided function to convert the key value pairs to column values. In order to do this, we'll need to have each row represent a single object with the proper syntax. On import you'll notice that the JSON data is represented as one row in one column. 
 
-1. The first step should be "Split into rows" (function) for column1 and split on \n. This will get us closer to having one object per row. 
-2. The second step should be "Replace text or patterns" for column1 and find /^\[/. Since our JSON data is an array of objects, we need to strip the leading and trailing '[' & ']'. 
-3. Step 3 does the same as above, but for the trailing bracket ']'. "Replace text or patterns" for column1 and find /\]$/.
-4. Step 4 removes the comma at the end of the object, as this was an array of objects. "Replace text or patterns" for column1 and find /^,/
-5. Now that we have a proper JSON object for each row, for step 5 we can use the Unnest Objects into columns function. This will take all the objects in column1 and pick out the values for each key and create a new column for that key. 
-6. Lastly we can delete column1, and we'll be left with a row column format for our data. 
+1. The first step should be "Split into rows". Applied on column1 and split on \n. This will get us closer to having one object per row. 
+2. The second step should be "Replace text or patterns". Applied on column1 and find /^\[/. Since our JSON data is an array of objects, we need to strip the leading and trailing '[' & ']'. 
+3. The thrid step does the same as above, but for the trailing bracket ']'. "Replace text or patterns" for column1 and find /\]$/.
+4. The Fourth step removes the comma at the end of the object, as this was an array of objects. "Replace text or patterns" for column1 and find /^,/
+5. Now that we have a proper JSON object for each row, for step 5 we can use the "Unnest Object elements" step. Applied on column1. For 'Path to elements' we can provide all the keys we wish to turn into columns. This will take all the objects in column1 and pick out the values for each key and create a new column for that key. 
+6. Lastly we can add a step to delete column1, and we'll be left with a row column format for our data. 
 
 ![GCP Dataprep recipe AA SS](documents/gcp%20ss/GCP%20Dataprep%20recipe%20AA%20SS.png)
 
@@ -115,31 +115,33 @@ Now that we have completed the transformations required in our first step to cle
 
 ![GCP Dataprep Updated Flow C SS](documents/gcp%20ss/GCP%20Dataprep%20%20Update%20Flow%20C%20SS.png)
 
-1. Add a new step and search for the New Formula function. The Formula Type will be Multiple Row Formula. The Formula will be MULTIPLY(mass, 2.205). Here we're using the Multiply function to convert the mass column, currently in lbs to kgs. 
-2. We can then use the delete column function to remove the original mass column as we will no longer need that. 
-3. We'll rename the year column to timestamp, as it contains a time stamp and not just the year. 
-4. Add another step with the New Formula function. The Formula Type will be Multiple Row Formula. The Formula will be DATEFORMAT(timestamp, 'yyyy'). The idea behind this, and the next couple steps, is to extract the year, date and month to their own columns.
+1. Add a new step and search for the "New Formula" function. The Formula Type will be Multiple Row Formula. The Formula will be MULTIPLY(mass, 2.205). Here we're using the Multiply function to convert the mass column, currently in lbs to kgs. 
+2. Add a second step and use the delete column function to remove the original mass column as we will no longer need that. 
+3. Add a thrid step to rename the year column to timestamp, as it contains a time stamp and not just the year. 
+4. Add another step with the "New Formula" function. The Formula Type will be Multiple Row Formula. The Formula will be DATEFORMAT(timestamp, 'yyyy'). The idea behind this, and the next couple steps, is to extract the year, date and month to their own columns.
 5. Here we do the same as above, but for the month. DATEFORMAT(timestamp, 'MM'). 
 6. Once again, we do the same as above to extract the date. DATEFORMAT(timestamp, 'dd').
 
 
 ![GCP Dataprep recipe BA SS](documents/gcp%20ss/GCP%20Dataprep%20recipe%20BA%20SS.png)
 
-Now that we have completed the steps in our transformations recipe, we can come back to our flow and set an output destination. To set an output destination we can click on the arrow that appears over the step on hover (Circled in green below). We can edit the destination details by clicking the Edit button under the Destinations tab (Circled in green). Also keep in mind the Run Job button, which we'll use after configuring the output destination.
+Now that we have completed the steps in our transformations recipe, we can come back to our flow and set an output destination. To set an output destination we can click on the arrow that appears over the step on hover (circled in green below). We can edit the destination details by clicking the Edit button under the Destinations tab (circled in green). Also keep in mind the Run Job button, which we'll use after configuring the output destination.
 
 ![GCP Dataprep Set Output A SS](documents/gcp%20ss/GCP%20Dataprep%20Set%20Output%20A%20SS.png)
 
-The edit browser can be seen below. By default the output will be sent to GCS in the form of a .csv. We can click Edit here to modify the destination (Circled in green).
+The edit browser can be seen below. By default the output will be sent to GCS in the form of a .csv. We can click Edit here to modify the destination (circled in green).
 
 ![GCP Dataprep Set Output B SS](documents/gcp%20ss/GCP%20Dataprep%20Set%20Output%20B%20SS.png)
 
-Since we want to set our destination to BigQuery, we'll first need to create a Dataset in BigQuery. In another tab, we can navigate to BigQuery using the hamburger icon and you'll find BigQuery under BIG DATA. We can CREATE DATASET (Circled in green below). I've named mine (nasa). Now we can go back to our dataprep console where we left off, and select our newly created dataset under BigQuery. You'll see we have the option to create a table on the fly and append for following executions. 
+Since we want to set our destination to BigQuery, we'll first need to create a Dataset in BigQuery. In another tab, we can navigate to BigQuery using the hamburger icon and you'll find BigQuery under BIG DATA. We can CREATE DATASET (circled in green below). I've named mine (nasa). 
 
 ![GCP BigQuery Create Dataset SS](documents/gcp%20ss/GCP%20BigQuery%20Create%20Dataset%20SS.png)
 
+Now we can go back to our dataprep console where we left off, and select our newly created dataset under BigQuery. You'll see we have the option to create a table on the fly and append for following executions.
+
 ![GCP Dataprep Set Output C SS](documents/gcp%20ss/GCP%20Dataprep%20Set%20Output%20C%20SS.png)
 
-We can update our flow (as seen above). This will bring us back to our flow where we can now run the job. Behind the scenes, this is executed as a dataflow job. We can navigate to dataflow using the hamburger icon and we'll find dataflow under BIGDATA. To see the execution of our flow, we can click into the job id, and we'll see the live execution of our job broken down into different steps.
+We can update our flow (as seen above). This will bring us back to our flow where we can now run the job. Behind the scenes, this is executed as a Dataflow job. We can navigate to Dataflow using the hamburger icon and we'll find Dataflow under BIGDATA. To see the execution of our flow, we can click into the job id, and we'll see the live execution of our job broken down into different steps.
 
 ![GCP Dataflow Execution SS](documents/gcp%20ss/GCP%20Dataflow%20Execution%20SS.png)
 
@@ -151,26 +153,11 @@ For our streaming process we'll be using a combination of Pub/Sub, Dataflow, and
 
 PubSub - Cloud Pub/Sub is a fully-managed real-time messaging service that allows you to send and receive messages between independent applications.
 
-For more context, Pub/Sub consists of publishers, subscribers, and Topics. Topics are the central messaging components that for any given topic pass along all messages to it's subscribers. Publishers can publish to 1 or more topic. Subscribers can subscribe to one or more topic. 
-
-#### Local Setup
-
-Note: My local machine is a Mac so instructions may vary for other OSs. 
-
-You'll want to get the latest version of Cloud SDK for your machine. These set of tools helps you manage resources and applications hosted on GCP.
-
-1. Cloud SDK requires Python 2 with a release number of Python 2.7.9 or higher.
-2. You can find the appropriate SDK for you from the following link: https://cloud.google.com/sdk/docs/
-3. Extract the contents of the file to any location on your file system.
-4. Open a Terminal and navigate to that location.
-5. To include Cloud SDK to your path you can run the command: `./google-cloud-sdk/install.sh`
-6. To initialize the SDK run the following command: `./google-cloud-sdk/bin/gcloud in
-
-Lets jump back to our GCP console to setup some components there. 
+For more context, Pub/Sub consists of publishers, subscribers, and Topics. Topics are the central messaging components that for any given topic pass along all messages to it's subscribers. Publishers can publish to one or more topic. Subscribers can subscribe to one or more topic. 
 
 #### Pub/Sub
 
-If we navigate to the Pub/Sub console under BIGDATA we can create our topic and subscription. Lets start with creating a Topic. You'll see the option to CREATE TOPIC (as cicled in green below). Just provide a name, topic-sc-demo, and create. 
+If we navigate to the Pub/Sub console under BIGDATA we can create our Topic and Subscription. Lets start with creating a Topic. You'll see the option to CREATE TOPIC (cicled in green below). Just provide a name (topic-sc-demo), and create.
 
 ![GCP PubSub Topics SS](documents/gcp%20ss/GCP%20PubSub%20Topics%20SS.png)
 
@@ -187,5 +174,33 @@ Now lets create a subscription. We can click on the subscriptions tab on the lef
 
 #### Dataflow 
 
-Dataflow has a service set up that will automatically send the messages received by the subscriber over to our BigQuery Table. Lets navigate to Dataflow so we can set that up. 
+Dataflow has a template set up that will help send the messages received by our subscriber over to our BigQuery Table. Lets navigate to Dataflow so we can set that up. Once you're on the Dataflow console page, you can click CREATE JOB FROM TEMPLATE on the top of the screen as shown in the image below. This will take us the the page as seen on the second image below. 
+
+1. Provide a Job name
+2. We'll want to select the "Cloud Pub/Sub Subscription to BigQuery" template
+3. We can select our desired regional endpoint
+4. Let's provide the full path of our Subscription we just created
+5. Lastly, provide the BigQuery Table we've been using
+6. We can keep the encryption as a Google-managed key
+7. Run Job.
+
+Now that this job is active, any messages received by our Subscriber will be directly sent over to our BigQuery Table. 
+
+![GCP Dataflow Console SS](documents/gcp%20ss/GCP%20Dataflow%20Console%20SS.png)
+
+![GCP Dataflow Template Create SS](documents/gcp%20ss/GCP%20Dataflow%20Template%20Create%20SS.png)
+
+#### Local Setup
+
+Note: My local machine is a Mac so instructions may vary for other OSs. 
+
+You'll want to get the latest version of Cloud SDK for your machine. These set of tools helps you manage resources and applications hosted on GCP.
+
+1. Cloud SDK requires Python 2 with a release number of Python 2.7.9 or higher.
+2. You can find the appropriate SDK for you from the following link: https://cloud.google.com/sdk/docs/
+3. Extract the contents of the file to any location on your file system.
+4. Open a Terminal and navigate to that location.
+5. To include Cloud SDK to your path you can run the command: `./google-cloud-sdk/install.sh`
+6. To initialize the SDK run the following command: `./google-cloud-sdk/bin/gcloud init`
+
 
