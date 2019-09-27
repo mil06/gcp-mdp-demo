@@ -233,6 +233,17 @@ You'll want to get the latest version of Cloud SDK for your machine. These set o
 
 ![GCP Local Python Run SS](documents/gcp%20ss/GCP%20Local%20Run%20Py%20SS.png)
 
-20. We can see above our python web service has been successfully started. Now we can publish a message using Postman. For those who are new to Postman, Postman is a Rest client that helps make GET and POST calls. We can use this to make a POST call through our publisher web service. 
+20. We can see above our python web service has been successfully started. Now we can publish a message using Postman. For those who are new to Postman, Postman is a Rest client that helps make GET and POST calls. We can use this to make a POST call through our publisher web service.
+
+We'll want to make sure the url is in the proper format `localhost:8080/publish/slalom-gcp-demo/topic-sc-demo`
+/publish is our webservice name
+slalom-gcp-demo is our GCP project name
+topic-sc-demo is our Pub/Sub Topic name
 
 ![GCP Local Postman Publish SS](documents/gcp%20ss/GCP%20Postman%20Publish%20SS.png)
+
+We can check in Big Query to verify that our message has been added to the table. We can run the query `SELECT * FROM nasa.meteorsonearth WHERE name LIKE "Mega%";`
+
+You'll see the record populated in the image below.
+
+![GCP BigQuery Verfiy SS](documents/gcp%20ss/GCP%20BigQuery%20Pub%20Messg%20Check%20SS.png)
