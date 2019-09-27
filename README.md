@@ -229,8 +229,10 @@ You'll want to get the latest version of Cloud SDK for your machine. These set o
 
 ![GCP Service Account Create SS](documents/gcp%20ss/GCP%20Service%20Account%20Create%20SS.png)
 
-12. Now we're ready to run our python web service. We can run the command `python publisher.py`
+19. Now we're ready to run our python web service. We can run the command `python publisher.py`
 
 ![GCP Local Python Run SS](documents/gcp%20ss/GCP%20Local%20Run%20Py%20SS.png)
+
+20. We can see above our python web service has been successfully started. Now we can publish a message using Postman. For those who are new to Postman, Postman is a Rest client that helps make GET and POST calls. We can use this to make a POST call through our publisher web service. 
 
 ![GCP Local Postman Publish SS](documents/gcp%20ss/GCP%20Postman%20Publish%20SS.png)
