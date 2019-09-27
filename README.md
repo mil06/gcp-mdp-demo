@@ -209,13 +209,28 @@ You'll want to get the latest version of Cloud SDK for your machine. These set o
 
 ![GCP Local SDK init SS](documents/gcp%20ss/GCP%20Local%20SDK%20init%20SS%20.png)
 
-7. Now that we have our SDK installed and configured. We can continue with our local set up. Lets create a virtualenv with the command: `virtualenv env`
-8. We can enter our virtual environments by using the command: `source env/bin/activate`
-9. We want to navigate to our directory where we have our publisher.py and requirements.txt files. (You can find them in the /src folder here in this github project)
-10. We'll want to install some dependencies for our code. Run the command: `pip install -r requirements.txt`
+7. You'll be prompted to login. Select Y and continue to the browser to login. You'll also be asked to select a compute region and zone. Select any that satisfies your needs. 
+8. Now that we have our SDK installed and configured. We can continue with our local set up. Lets create a virtualenv with the command: `virtualenv env`
+9. We can enter our virtual environments by using the command: `source env/bin/activate`
+10. We want to navigate to our directory where we have our publisher.py and requirements.txt files. (You can find them in the /src folder here in this github project)
+11. We'll want to install some dependencies for our code. Run the command: `pip install -r requirements.txt`
 
 ![GCP Local Reqs install SS](documents/gcp%20ss/GCP%20Local%20Reqs%20SS.png)
 
-11. Now we're ready to run our python web service. We can run the command `python publisher.py`
+12. We'll need to create a service account in order to run our python script. Navigate to https://cloud.google.com/docs/authentication/getting-started
+13. Click on the "GO TO THE CREATE SERVICE ACCOUNT KEY PAGE" button
+14. From the Service account list, select New service account
+15. In the Service account name field, enter a name
+16. From the Role list, select Project > Owner
+17. Click Create.  A JSON file that contains your key downloads to your computer. 
+18. Set your environment variable by using the command: `export GOOGLE_APPLICATION_CREDENTIALS="/home/user/Downloads/[FILE_NAME].json"`
 
+![GCP Service Account Page SS](documents/gcp%20ss/GCP%20Service%20Account%20Page%20SS.png)
 
+![GCP Service Account Create SS](documents/gcp%20ss/GCP%20Service%20Account%20Create%20SS.png)
+
+12. Now we're ready to run our python web service. We can run the command `python publisher.py`
+
+![GCP Local Python Run SS](documents/gcp%20ss/GCP%20Local%20Run%20Py%20SS.png)
+
+![GCP Local Postman Publish SS](documents/gcp%20ss/GCP%20Postman%20Publish%20SS.png)
