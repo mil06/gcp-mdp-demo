@@ -192,6 +192,8 @@ Now that this job is active, any messages received by our Subscriber will be dir
 
 #### Local Setup
 
+To send messages to our Subscriber, we'll need a Publisher. I've set up a python web service that acts as a Publisher. Once we complete the local setup and activate the Publisher we can send messages via the Publisher to our Topic. 
+
 Note: My local machine is a Mac so instructions may vary for other OSs. 
 
 You'll want to get the latest version of Cloud SDK for your machine. These set of tools helps you manage resources and applications hosted on GCP.
@@ -202,5 +204,18 @@ You'll want to get the latest version of Cloud SDK for your machine. These set o
 4. Open a Terminal and navigate to that location.
 5. To include Cloud SDK to your path you can run the command: `./google-cloud-sdk/install.sh`
 6. To initialize the SDK run the following command: `./google-cloud-sdk/bin/gcloud init`
+
+![GCP Local SDK install SS](documents/gcp%20ss/GCP%20Local%20SDK%20Install%20SS.png)
+
+![GCP Local SDK init SS](documents/gcp%20ss/GCP%20Local%20SDK%20init%20SS%20.png)
+
+7. Now that we have our SDK installed and configured. We can continue with our local set up. Lets create a virtualenv with the command: `virtualenv env`
+8. We can enter our virtual environments by using the command: `source env/bin/activate`
+9. We want to navigate to our directory where we have our publisher.py and requirements.txt files. (You can find them in the /src folder here in this github project)
+10. We'll want to install some dependencies for our code. Run the command: `pip install -r requirements.txt`
+
+![GCP Local Reqs install SS](documents/gcp%20ss/GCP%20Local%20Reqs%20SS.png)
+
+11. Now we're ready to run our python web service. We can run the command `python publisher.py`
 
 
