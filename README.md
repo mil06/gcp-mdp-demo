@@ -21,7 +21,7 @@ Navigate to the GCP console (https://console.cloud.google.com). You'll need a go
 
 ![GCP Console SS](documents/gcp%20ss/GCP%20Console%20SS.png)
 
-Let's create a new project. We can click on the projects tab towards the top left (Circled above in green). Here we'll see a pop up menu with a list of our projects and the option to create a new project. Click NEW PROJECT on the top right. 
+Let's create a new project. We can click on the projects tab towards the top left (circled above in green). Here we'll see a pop up menu with a list of our projects and the option to create a new project. Click NEW PROJECT on the top right. 
 
 ![GCP Projects](documents/gcp%20ss/GCP%20Projects%20Menu%20SS.png)
 
@@ -51,25 +51,24 @@ As mentioned, our data is a set of records regarding meteors that have fallen to
 ```
 #### Cloud Storage
 
-We can continue in our newly created GCP project by using Cloud Storage to upload our JSON file. Click on the hamburger icon to expand the products menu (Top left of screen). Under STORAGE we'll find the Storage product. Below is the Storage browser where we can create a new bucket for the file we'll upload. 
+We can continue in our newly created GCP project by using Cloud Storage to upload our JSON file. Click on the hamburger icon to expand the products menu (Top left of screen. You'll see the same menu expanded in the screen shots above). Under STORAGE we'll find the Storage product. Below is the Storage browser where we can create a new bucket for the file we'll upload. 
 
 ![GCP Storage Browser](documents/gcp%20ss/GCP%20Storage%20Browser%20SS.png)
 
-(Steps can be followed with images below)
-1. Click CREATE BUCKET
-2. Provide a name for your new bucket
+1. Click CREATE BUCKET (circled in green above)
+2. Provide a name for your new bucket (shown in image below)
 3. Choose where you want to Store your data (Multi-region by default)
 4. Choose storage class (Standard by default)
 5. Choose control access for objects
 6. Click CREATE
 
-If we navigate back to the Storage browser, we can see the newly created bucket. (Circled above in green (storage-sc-demo)). 
+If we navigate back to the Storage browser, we can see the newly created bucket. (circled above in green (storage-sc-demo)). 
 
 ![GCP Storage Create A](documents/gcp%20ss/GCP%20Storage%20Create%20A%20SS.png)
 
 ![GCP Storage Create B](documents/gcp%20ss/GCP%20Storage%20Create%20B%20SS.png)
 
-Lets go into our bucket and create a folder to place our JSON file. Use the create folder button (Circled below in green). Give your folder a name and you'll see it be created (Circled in green (data-prep)). Upload the JSON file, meteorsonearth.json, from the /data folder. You can now see the uploaded file in the dataprep folder (Circled in green second image below). Now that we have completed the steps required in Cloud Storage, we can continue to Dataprep
+Lets go into our bucket and create a folder to place our JSON file. Use the create folder button (circled below in green). Give your folder a name and you'll see it be created (circled in green (data-prep)). Upload the JSON file, meteorsonearth.json, from the /data folder. You can now see the uploaded file in the dataprep folder (circled in green second image below). Now that we have completed the steps required in Cloud Storage, we can continue to Dataprep
 
 ![GCP Storage Bucket](documents/gcp%20ss/GCP%20Storage%20Bucket%20SS.png)
 
@@ -77,7 +76,7 @@ Lets go into our bucket and create a folder to place our JSON file. Use the crea
 
 #### Dataprep
 
-Lets navigate to the dataprep console by once again using the hamburger icon on the top left. We can find Dataprep under BIG DATA. We can create a new flow by clicking the Create Flow button (Circled in green below). Once we've given our flow a name and description we'll see it populated under the list of all flows (dataprep-sc-demo).  
+Lets navigate to the dataprep console by once again using the hamburger icon on the top left. We can find Dataprep under BIG DATA. We can create a new flow by clicking the Create Flow button (circled in green below). Once we've given our flow a name and description we'll see it populated under the list of all flows (dataprep-sc-demo).  
 
 ![GCP Dataprep Console](documents/gcp%20ss/GCP%20Dataprep%20Browser%20SS.png)
 
